@@ -1,0 +1,36 @@
+
+{% extends 'template.html' %}
+{% block conteudo %}
+    <p>
+        <button type="button" class="btn btn-success" onclick="location.href = 'novo'">Novo</button>
+        {% if 'usuario_logado' not in session or session['usuario_logado'] == None %}
+            <button type="button" class="btn btn-primary" onclick="location.href = 'login'">Login</button>
+        {% else %}
+            <button type="button" class="btn btn-danger" onclick="location.href = 'logout'">Logout</button>
+        {% endif %}
+    </p>
+    {# Validação da Lista de Jogos #}
+    {% if jogos %}
+        <table class="table table-striped table-responsive table-bordered">
+            <thead class="thead-default">
+                <tr>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Console</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# Lista de Jogos #}
+                {% for jogo in jogos %}
+                <tr>
+                    <td>{{ jogo.nome }}</td>
+                    <td>{{ jogo.categoria }}</td>
+                    <td>{{ jogo.console.upper() }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma jogo cadastrado... </p>
+    {% endif %}
+{% endblock %}
